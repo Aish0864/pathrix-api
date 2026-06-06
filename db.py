@@ -157,6 +157,7 @@
 
 
 # db.py — PostgreSQL connection and table setup
+# db.py — PostgreSQL connection and table setup
 import os
 import psycopg2
 from psycopg2.extras import RealDictCursor
