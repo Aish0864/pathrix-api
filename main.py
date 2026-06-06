@@ -54,7 +54,7 @@ app.add_middleware(
     CORSMiddleware,
     allow_origins=[
         "http://localhost:3000",
-        "https://pathrix.vercel.app",
+        "https://pathrix-frontend.vercel.app",
     ],
     allow_methods=["*"],
     allow_headers=["*"],
