@@ -1,0 +1,21 @@
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+
+# Large model files - too big for GitHub
+padded_tensor.pt
+q_table_session6_final.pkl
+q_table_compressed.pkl
+sequences.pkl
+
+# Compression scripts
+compress_qtable.py
+compress_qtable_v2.py
+compress_qtable_v3.py
+
+# Database - contains real user data
+pathrix.db
+
+# Temp files
+tmp.py

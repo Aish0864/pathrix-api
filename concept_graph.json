@@ -1,0 +1,405 @@
+{
+  "0": {
+    "name": "Variables",
+    "level": 0,
+    "prerequisites": []
+  },
+  "1": {
+    "name": "Data Types",
+    "level": 0,
+    "prerequisites": [
+      0
+    ]
+  },
+  "2": {
+    "name": "Operators",
+    "level": 0,
+    "prerequisites": [
+      0
+    ]
+  },
+  "3": {
+    "name": "Input/Output",
+    "level": 0,
+    "prerequisites": [
+      0
+    ]
+  },
+  "4": {
+    "name": "Comments",
+    "level": 0,
+    "prerequisites": [
+      0
+    ]
+  },
+  "5": {
+    "name": "If/Else",
+    "level": 1,
+    "prerequisites": [
+      1,
+      2
+    ]
+  },
+  "6": {
+    "name": "Elif",
+    "level": 1,
+    "prerequisites": [
+      5
+    ]
+  },
+  "7": {
+    "name": "For Loop",
+    "level": 1,
+    "prerequisites": [
+      1,
+      2
+    ]
+  },
+  "8": {
+    "name": "While Loop",
+    "level": 1,
+    "prerequisites": [
+      2,
+      5
+    ]
+  },
+  "9": {
+    "name": "Break/Continue",
+    "level": 1,
+    "prerequisites": [
+      7,
+      8
+    ]
+  },
+  "10": {
+    "name": "Pass",
+    "level": 1,
+    "prerequisites": [
+      5
+    ]
+  },
+  "11": {
+    "name": "Strings",
+    "level": 2,
+    "prerequisites": [
+      1
+    ]
+  },
+  "12": {
+    "name": "Lists",
+    "level": 2,
+    "prerequisites": [
+      1,
+      7
+    ]
+  },
+  "13": {
+    "name": "Tuples",
+    "level": 2,
+    "prerequisites": [
+      12
+    ]
+  },
+  "14": {
+    "name": "Sets",
+    "level": 2,
+    "prerequisites": [
+      12
+    ]
+  },
+  "15": {
+    "name": "Dictionaries",
+    "level": 2,
+    "prerequisites": [
+      12
+    ]
+  },
+  "16": {
+    "name": "List Slicing",
+    "level": 2,
+    "prerequisites": [
+      12
+    ]
+  },
+  "17": {
+    "name": "Functions",
+    "level": 3,
+    "prerequisites": [
+      5,
+      7
+    ]
+  },
+  "18": {
+    "name": "Arguments",
+    "level": 3,
+    "prerequisites": [
+      17
+    ]
+  },
+  "19": {
+    "name": "Return Values",
+    "level": 3,
+    "prerequisites": [
+      17
+    ]
+  },
+  "20": {
+    "name": "Default Args",
+    "level": 3,
+    "prerequisites": [
+      18
+    ]
+  },
+  "21": {
+    "name": "Scope",
+    "level": 3,
+    "prerequisites": [
+      17
+    ]
+  },
+  "22": {
+    "name": "Lambda",
+    "level": 3,
+    "prerequisites": [
+      17,
+      19
+    ]
+  },
+  "23": {
+    "name": "Base Case",
+    "level": 4,
+    "prerequisites": [
+      17,
+      19
+    ]
+  },
+  "24": {
+    "name": "Recursive Functions",
+    "level": 4,
+    "prerequisites": [
+      23
+    ]
+  },
+  "25": {
+    "name": "Memoization",
+    "level": 4,
+    "prerequisites": [
+      24,
+      15
+    ]
+  },
+  "26": {
+    "name": "Classes",
+    "level": 5,
+    "prerequisites": [
+      17,
+      21
+    ]
+  },
+  "27": {
+    "name": "Objects",
+    "level": 5,
+    "prerequisites": [
+      26
+    ]
+  },
+  "28": {
+    "name": "Constructors",
+    "level": 5,
+    "prerequisites": [
+      26
+    ]
+  },
+  "29": {
+    "name": "Inheritance",
+    "level": 5,
+    "prerequisites": [
+      27,
+      28
+    ]
+  },
+  "30": {
+    "name": "Polymorphism",
+    "level": 5,
+    "prerequisites": [
+      29
+    ]
+  },
+  "31": {
+    "name": "Encapsulation",
+    "level": 5,
+    "prerequisites": [
+      27,
+      28
+    ]
+  },
+  "32": {
+    "name": "Modules",
+    "level": 6,
+    "prerequisites": [
+      17
+    ]
+  },
+  "33": {
+    "name": "Packages",
+    "level": 6,
+    "prerequisites": [
+      32
+    ]
+  },
+  "34": {
+    "name": "File Read",
+    "level": 6,
+    "prerequisites": [
+      3,
+      32
+    ]
+  },
+  "35": {
+    "name": "File Write",
+    "level": 6,
+    "prerequisites": [
+      34
+    ]
+  },
+  "36": {
+    "name": "Exception Handling",
+    "level": 6,
+    "prerequisites": [
+      17,
+      5
+    ]
+  },
+  "37": {
+    "name": "Try/Except",
+    "level": 6,
+    "prerequisites": [
+      36
+    ]
+  },
+  "38": {
+    "name": "Comprehensions",
+    "level": 7,
+    "prerequisites": [
+      12,
+      7,
+      22
+    ]
+  },
+  "39": {
+    "name": "Iterators",
+    "level": 7,
+    "prerequisites": [
+      7,
+      26
+    ]
+  },
+  "40": {
+    "name": "Generators",
+    "level": 7,
+    "prerequisites": [
+      39,
+      19
+    ]
+  },
+  "41": {
+    "name": "Decorators",
+    "level": 7,
+    "prerequisites": [
+      22,
+      26
+    ]
+  },
+  "42": {
+    "name": "Context Managers",
+    "level": 7,
+    "prerequisites": [
+      37,
+      26
+    ]
+  },
+  "43": {
+    "name": "Math",
+    "level": 8,
+    "prerequisites": [
+      32,
+      2
+    ]
+  },
+  "44": {
+    "name": "OS",
+    "level": 8,
+    "prerequisites": [
+      32,
+      34
+    ]
+  },
+  "45": {
+    "name": "Sys",
+    "level": 8,
+    "prerequisites": [
+      32
+    ]
+  },
+  "46": {
+    "name": "DateTime",
+    "level": 8,
+    "prerequisites": [
+      32
+    ]
+  },
+  "47": {
+    "name": "Collections",
+    "level": 8,
+    "prerequisites": [
+      32,
+      15
+    ]
+  },
+  "48": {
+    "name": "Itertools",
+    "level": 8,
+    "prerequisites": [
+      32,
+      39
+    ]
+  },
+  "49": {
+    "name": "Threading",
+    "level": 9,
+    "prerequisites": [
+      26,
+      32
+    ]
+  },
+  "50": {
+    "name": "Multiprocessing",
+    "level": 9,
+    "prerequisites": [
+      49
+    ]
+  },
+  "51": {
+    "name": "Async/Await",
+    "level": 9,
+    "prerequisites": [
+      40,
+      36
+    ]
+  },
+  "52": {
+    "name": "Event Loop",
+    "level": 9,
+    "prerequisites": [
+      51
+    ]
+  },
+  "53": {
+    "name": "Locks/Semaphores",
+    "level": 9,
+    "prerequisites": [
+      49,
+      50
+    ]
+  }
+}
