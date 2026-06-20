@@ -19,14 +19,7 @@
 | Backend API | https://pathrix-api.onrender.com |
 | API Docs | https://pathrix-api.onrender.com/docs |
 
-### Demo Credentials
-
-| Role | Email | Password |
-|---|---|---|
-| Beginner Student | arjun@demo.com | demo123 |
-| Intermediate Student | priya@demo.com | demo123 |
-| Advanced Student | rahul@demo.com | demo123 |
-| Admin | admin | admin123 |
+> Demo access available on request.
 
 ---
 
@@ -82,7 +75,6 @@ DKT Module  RL Agent
         │
         ▼
   PostgreSQL DB
-  (5 tables)
 ```
 
 ### Request Flow
@@ -112,42 +104,31 @@ DKT Module  RL Agent
 | Output | Mastery vector [150] |
 | Parameters | 1,094,078 |
 | Dataset | ASSISTments 2009-2010 |
-| Training students | 3,222 |
-| Validation students | 805 |
 | AUC-ROC | 0.7927 |
 | RMSE | 0.4092 |
-
-**Encoding:** `skill_id × 2 + correct` → unique token per skill-response pair
 
 ### Q-Learning Agent
 
 | Parameter | Value |
 |---|---|
 | Concepts | 54 Python nodes |
-| State space | 3^54 theoretical |
-| Visited states (training) | 5,074,554 |
-| Deployed states | 162,821 (compressed) |
 | Training episodes | 10,000 |
-| Best run reward | 870 (Run 8) |
+| Best run reward | 870 |
 | Learning rate α | 0.1 |
 | Discount factor γ | 0.9 |
 | Exploration rate ε | 0.1 |
 
-**Reward function:** mastery gain + speed bonus − wrong answer penalty (−0.3) − timeout penalty (−0.5)
-
 **Three-tier fallback:**
 1. Exact Q-table lookup
-2. Hamming distance nearest neighbour (distance ≤ 5, Q > 1.0)
-3. Level-order default (first unmastered concept)
-
-**Deployment compression:** Full Q-table was 2.72GB. States with Q-value < 2.0 pruned → 93.8MB deployed version.
+2. Hamming distance nearest neighbour
+3. Level-order default
 
 ### XAI Layer
 
 Every recommendation includes a natural language explanation built from:
 - Recommended concept name and current mastery %
-- Q-value → confidence tier (High: Q ≥ 5.0, Medium: Q ≥ 2.0, Low: Q < 2.0)
-- Failure rate over last 5 interactions → cognitive load (High: ≥ 0.6, Medium: ≥ 0.3, Low: < 0.3)
+- Q-value → confidence tier (High / Medium / Low)
+- Failure rate → cognitive load indicator (High / Medium / Low)
 
 **Example:** *"Strings is recommended because you haven't started it yet and all prerequisites are met. Confidence: MEDIUM. Cognitive load: LOW."*
 
@@ -161,24 +142,14 @@ Every recommendation includes a natural language explanation built from:
 | API Framework | FastAPI |
 | ML Framework | PyTorch 2.12 (CPU-only for deployment) |
 | Database (local) | SQLite |
-| Database (deployed) | PostgreSQL (Render) |
-| Authentication | bcrypt + session tokens |
+| Database (deployed) | PostgreSQL |
 | Language | Python 3.11 |
 
 ### Frontend
 | Component | Technology |
 |---|---|
-| Framework | React |
-| Screens | 15+ |
+| Framework | React 18 |
 | Deployment | Vercel |
-
-### Infrastructure
-| Component | Service |
-|---|---|
-| Backend hosting | Render (free tier) |
-| Frontend hosting | Vercel |
-| Database | Render PostgreSQL |
-| Model training | Google Colab (T4 GPU) |
 
 ---
 
@@ -193,85 +164,24 @@ Every recommendation includes a natural language explanation built from:
 | GET | /get_recommendation | Get next concept recommendation |
 | GET | /get_mastery | Get current mastery vector |
 | GET | /get_progress | Get learner progress summary |
-| GET | /admin/students | List all students (admin) |
-| GET | /admin/student/{id} | Get student details (admin) |
-| GET | /admin/pipeline | View AI pipeline status (admin) |
-| GET | /admin/ab_comparison | A/B comparison data (admin) |
+| GET | /admin/students | List all students |
+| GET | /admin/student/{id} | Get student details |
+| GET | /admin/pipeline | View AI pipeline status |
+| GET | /admin/ab_comparison | A/B comparison data |
 | GET | /health | Health check |
 
 Full interactive docs: https://pathrix-api.onrender.com/docs
 
 ---
 
-## Database Schema
-
-```
-students
-├── id (UUID, PK)
-├── name
-├── email (unique)
-├── password_hash
-└── created_at
-
-sessions
-├── id (UUID, PK)
-├── student_id (FK)
-├── profile (beginner/intermediate/advanced)
-└── created_at
-
-interactions
-├── id (UUID, PK)
-├── student_id (FK)
-├── skill_id
-├── correct (boolean)
-└── created_at
-
-student_mastery
-├── id (UUID, PK)
-├── student_id (FK)
-├── concept_id
-├── mastery_score
-└── updated_at
-
-rl_rewards
-├── id (UUID, PK)
-├── student_id (FK)
-├── concept_id
-├── reward
-└── created_at
-```
-
----
-
-## Project Structure
-
-```
-pathrix-api/
-├── main.py                    # FastAPI app, all endpoints
-├── db.py                      # Database connection + queries
-├── models.py                  # Pydantic request/response models
-├── dkt_service.py             # DKT inference service
-├── rl_service.py              # Q-Learning agent + XAI layer
-├── concept_graph.json         # 54-node Python curriculum graph
-├── dkt_best_model_v5.pt       # Trained DKT model (4MB)
-├── q_table_final.pkl          # Compressed Q-table (93.8MB)
-├── compress_qtable_v3.py      # Q-table compression script
-├── seed_demo.py               # Demo user seeding script
-├── requirements.txt           # Python dependencies
-└── runtime.txt                # Python 3.11 for Render
-```
-
----
-
 ## How to Run Locally
 
 ### Prerequisites
-```bash
+```
 Python 3.11
-Node.js 18+ (for frontend)
 ```
 
-### Backend Setup
+### Setup
 
 ```bash
 # Clone the repo
@@ -285,36 +195,17 @@ pip install -r requirements.txt
 uvicorn main:app --reload
 ```
 
-API will be available at `http://localhost:8000`
-Interactive docs at `http://localhost:8000/docs`
+API runs at `http://localhost:8000`
+Docs at `http://localhost:8000/docs`
 
 ### Environment Variables
 
-For local development, SQLite is used by default (no setup needed).
+For local development SQLite is used by default — no setup needed.
 
-For PostgreSQL deployment, set:
+For PostgreSQL deployment:
 ```
-DATABASE_URL=postgresql://user:password@host/dbname
+DATABASE_URL=your_postgresql_connection_string
 ```
-
-### Seed Demo Users
-
-```bash
-python seed_demo.py
-```
-
-Creates demo accounts: arjun@demo.com, priya@demo.com, rahul@demo.com
-
-### Frontend Setup
-
-```bash
-git clone https://github.com/Aish0864/pathrix-frontend
-cd pathrix-frontend
-npm install
-npm start
-```
-
-Frontend at `http://localhost:3000`
 
 ---
 
@@ -348,21 +239,12 @@ Level 10: Advanced Topics
 | **v5** | **256** | **0.5372** | **0.7927** | **75.51%** |
 | v6 | 256* | 0.5326 | 0.7662 | 73.69% |
 
-*v6 used embedding_dim=256 — lower loss but worse AUC, demonstrating BCE loss and AUC measure different properties.
-
+*v6 used embedding_dim=256 — lower loss but worse AUC.
 **Selected: v5** — best AUC-ROC, early stopping at epoch 9.
 
 ---
 
-## Research Context
-
-This system was developed as an MTech Computer Engineering dissertation at Vidyalankar Institute of Technology, Wadala, Maharashtra, India.
-
-**Guide:** Dr. Kavita P. Shirsat
-
-**Survey Paper:** "Bridging Knowledge Tracing and Path Planning in AI-Based Personalized Learning: A Systematic Survey" — submitted to International Journal of Educational Technology in Higher Education (Springer, Q1)
-
-### Novelty
+## Novelty
 
 No existing system combines all four components in a single deployed framework:
 
@@ -379,29 +261,31 @@ No existing system combines all four components in a single deployed framework:
 
 - DKT trained on ASSISTments mathematics data (domain mismatch with Python)
 - Small user study cohort (22 users, single session)
-- No control group — learning benefit vs non-adaptive not formally measured
+- No control group
 - Cognitive load estimated from failure rate (behavioural proxy only)
-- Offline Q-Learning policy — does not update from real interactions
-- 54 concepts only — limited Python curriculum coverage
+- Offline Q-Learning policy
+- 54 concepts only
 
 ---
 
 ## Future Work
 
 - Train DKT on Python-specific interaction dataset
-- Implement online RL policy updating from real user sessions
-- Expand concept graph to 150+ nodes (OOP, Django, NumPy, Pandas)
+- Implement online RL policy
+- Expand concept graph to 150+ nodes
 - A/B test against non-adaptive baseline
 - Longitudinal multi-session evaluation
 - Mobile responsive frontend
 
 ---
 
-## Author
+## Research Context
 
-**Aishwarya Nalawade**
-MTech Computer Engineering
+MTech Computer Engineering Dissertation
 Vidyalankar Institute of Technology, Wadala, Maharashtra, India
+
+**Author:** Aishwarya Nalawade
+**Guide:** Dr. Kavita P. Shirsat
 
 ---
 
